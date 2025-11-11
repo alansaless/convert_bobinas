@@ -1,0 +1,3 @@
+body { background: #f7f8fa; }
+#map { width: 100%; }
+.leaflet-marker-selected { filter: hue-rotate(90deg) brightness(1.2); }

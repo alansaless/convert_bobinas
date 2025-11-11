@@ -1,0 +1,17 @@
+# Ambiente
+.env
+.env.*
+
+# Logs e temporários
+storage/logs/
+*.log
+desktop.ini
+
+# GitHub e build
+.github/
+.DS_Store
+node_modules/
+vendor/
+
+# Outros
+Thumbs.db
