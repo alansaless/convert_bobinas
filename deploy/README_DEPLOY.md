@@ -20,5 +20,14 @@ Opcionalmente, se preferir SSH ao invés de FTP:
 ## cPanel
 Para cPanel, o `SERVER_DIR` costuma ser `public_html/SEU_SUBDIRETORIO`. Crie a pasta destino antes ou deixe o deploy criar.
 
+## Docroot do subdomínio
+Para este projeto, o docroot informado é:
+
+`domains/convert.r3mark.com.br/public_html`
+
+Use o caminho relativo ao root do seu usuário FTP. Em muitos provedores (DirectAdmin, cPanel), o painel mostra com barra inicial (`/domains/...`), mas no FTP a forma correta costuma ser SEM a barra inicial: `domains/...`.
+
+Se o deploy falhar com erro de caminho, altere removendo/adicionando a barra inicial conforme seu provedor e confirme o docroot no painel.
+
 ## Banco de dados
 Crie o DB e importe `schema.sql`. Configure `.env` com as credenciais de produção.
