@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy-ftp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy via FTP/FTPS (cPanel)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftps
+          local-dir: .
+          server-dir: ${{ secrets.SERVER_DIR }}
+          exclude: |
+            **/.git*/
+            **/.github/**
+            **/.env
+            storage/logs/**
+            **/desktop.ini
+            **/Thumbs.db
+      - name: Health check (convert.r3mark.com.br)
+        run: |
+          set -e
+          echo "Checking homepage"
+          curl -L --fail --max-time 30 https://convert.r3mark.com.br/
+          echo "Checking API stats"
+          curl -L --fail --max-time 30 https://convert.r3mark.com.br/api/stats
+
+  # Alternativa via SSH + rsync (se tiver shell no servidor)
+  # deploy-ssh:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup SSH
+  #       uses: webfactory/ssh-agent@v0.7.0
+  #       with:
+  #         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #     - name: Copy files via rsync
+  #       run: |
+  #         rsync -avz --delete \
+  #           --exclude='.git/' --exclude='.github/' --exclude='.env' --exclude='storage/logs/' \
+  #           ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SERVER_DIR }}/

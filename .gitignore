@@ -8,7 +8,6 @@ storage/logs/
 desktop.ini
 
 # GitHub e build
-.github/
 .DS_Store
 node_modules/
 vendor/
