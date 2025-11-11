@@ -54,3 +54,16 @@ Notas:
 - `.vscode/` está ignorado no `.gitignore` para não versionar credenciais locais.
 - Se ocorrer erro de caminho, teste a variante com barra inicial: `/domains/convert.r3mark.com.br/public_html`.
 - Se houver erro de TLS, mude `protocol` para `ftps` ou volte a `ftp` conforme o suporte do provedor.
+
+## Preparação de Banco de Dados
+- No painel (cPanel/DirectAdmin), crie o banco e o usuário e conceda privilégios no banco.
+- Edite/crie o arquivo `.env` na raiz do projeto com:
+  - `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`
+  - `APP_TIMEZONE`, `API_KEY`, demais integrações `RD_*` se necessário.
+- Importe o `schema.sql` via phpMyAdmin OU use o instalador abaixo.
+
+### Instalador protegido (opcional)
+Há um endpoint `install.php` que aplica `schema.sql` no banco configurado:
+- Defina `API_KEY` no `.env` (você pode usar a UI e o endpoint `config/save`).
+- Chame com header `X-Api-Key: <sua API_KEY>`: `https://convert.r3mark.com.br/install.php`
+- Após sucesso, remova o arquivo `install.php` do servidor.
