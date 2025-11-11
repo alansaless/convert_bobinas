@@ -18,6 +18,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ftp
+          dangerous-clean-slate: true
           local-dir: .
           server-dir: ${{ secrets.SERVER_DIR }}
           exclude: |
