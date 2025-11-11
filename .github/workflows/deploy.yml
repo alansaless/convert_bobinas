@@ -1,8 +1,9 @@
-name: Deploy
+name: Deploy (FTP)
 
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   deploy-ftp:
@@ -32,9 +33,9 @@ jobs:
         run: |
           set -e
           echo "Checking homepage"
-          curl -L --fail --max-time 30 https://convert.r3mark.com.br/
+          curl -L -k --fail --max-time 30 https://convert.r3mark.com.br/
           echo "Checking API stats"
-          curl -L --fail --max-time 30 https://convert.r3mark.com.br/api/stats
+          curl -L -k --fail --max-time 30 https://convert.r3mark.com.br/api/stats
 
   # Alternativa via SSH + rsync (se tiver shell no servidor)
   # deploy-ssh:
