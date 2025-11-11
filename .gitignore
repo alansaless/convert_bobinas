@@ -12,5 +12,8 @@ desktop.ini
 node_modules/
 vendor/
 
+# IDE / extensão SFTP
+.vscode/
+
 # Outros
 Thumbs.db

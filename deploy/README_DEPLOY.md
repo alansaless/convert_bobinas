@@ -31,3 +31,26 @@ Se o deploy falhar com erro de caminho, altere removendo/adicionando a barra ini
 
 ## Banco de dados
 Crie o DB e importe `schema.sql`. Configure `.env` com as credenciais de produção.
+
+## Deploy via extensão SFTP (VS Code / Trae)
+Se preferir publicar diretamente do editor usando a extensão "SFTP/FTP sync":
+
+- Instale a extensão (Natizyskunks — SFTP/FTP sync).
+- O arquivo de configuração já está em `.vscode/sftp.json`.
+  - `host`: `painel.r3mark.com.br`
+  - `protocol`: `ftp` (mude para `ftps` se desejar TLS explícito)
+  - `port`: `21`
+  - `username`: `rmarkco1` (a senha será solicitada ao conectar)
+  - `remotePath`: `domains/convert.r3mark.com.br/public_html` (sem barra inicial)
+- Comandos úteis (Command Palette):
+  - "SFTP: Sync Local -> Remote" (envia todo o projeto; respeita exclusões)
+  - "SFTP: Upload Active File" (envia apenas o arquivo aberto)
+  - "SFTP: List/Download" (útil para conferir o que há no servidor)
+- Após a sincronização, valide:
+  - Homepage: `https://convert.r3mark.com.br/` deve exibir a UI do projeto.
+  - API: `https://convert.r3mark.com.br/api/stats` deve retornar 200 com JSON.
+
+Notas:
+- `.vscode/` está ignorado no `.gitignore` para não versionar credenciais locais.
+- Se ocorrer erro de caminho, teste a variante com barra inicial: `/domains/convert.r3mark.com.br/public_html`.
+- Se houver erro de TLS, mude `protocol` para `ftps` ou volte a `ftp` conforme o suporte do provedor.
